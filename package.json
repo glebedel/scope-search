@@ -1,0 +1,41 @@
+{
+  "name": "scope-search",
+  "version": "1.0.0",
+  "description": "search in global scope",
+  "main": "src/search.js",
+  "scripts": {
+    "test": "jasmin tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glebedel/scope-search.git"
+  },
+  "keywords": [
+    "search",
+    "global",
+    "scope",
+    "javascript",
+    "window",
+  ],
+  "author": "guillaume.lebedel@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glebedel/scope-search/issues"
+  },
+  "homepage": "https://github.com/glebedel/scope-search#README",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-connect": "^1.0.1",
+    "grunt-contrib-jasmine": "^1.0.3",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jasmine-node": "^0.3.1",
+    "grunt-shell": "^1.3.0",
+    "grunt-template-jasmine-requirejs": "^0.2.3",
+    "jasmine": "^2.4.1",
+    "jasmine-node": "^1.14.5",
+    "jsdoc": "^3.4.0",
+    "load-grunt-tasks": "^3.5.0"
+  }
+}
