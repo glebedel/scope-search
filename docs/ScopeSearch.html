@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: ScopeSearch</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: ScopeSearch</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>ScopeSearch</h2>
+        
+            <div class="class-description">ScopeSearch
+class to search in javascript objects</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="ScopeSearch"><span class="type-signature"></span>new ScopeSearch<span class="signature">(origin<span class="signature-attributes">opt</span>, validator<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    constructor of the ScopeSearch class.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>origin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last">object to search through</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>validator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    function(){return false}
+                
+                </td>
+            
+
+            <td class="description last">condition that will validate whether or not the data looked at is a valid result</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {maxDepth:50, key:true, value: true, logErrors: false, logProgress:true, progressThreshold:0.25}
+                
+                </td>
+            
+
+            <td class="description last">object specifying different options to our search
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>maxDepth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    50
+                
+                </td>
+            
+
+            <td class="description last">maximum depth the recursive search will go through.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">check the keys of properties for matches against our validator</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">check the values of properties for matches against our validator</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>logErrors</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">log (console.error) error thrown by our validator function</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>logProgress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">log progress percentage of our search (compared to total amount of properties to look at)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>progressThreshold</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0.25
+                
+                </td>
+            
+
+            <td class="description last">threshold % to show for the progress logs (default logs for every 25% searched)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="search.js.html">search.js</a>, <a href="search.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="count"><span class="type-signature"></span>count<span class="signature">(origin<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Counts the number of non-object properties inside of a javascript object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>origin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    this.origin
+                
+                </td>
+            
+
+            <td class="description last">object which will be searched through and the number of properties returned</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="search.js.html">search.js</a>, <a href="search.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Number of (non-object) properties which inside the origin and all its inner objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="logError"><span class="type-signature"></span>logError<span class="signature">(toLog)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    use console.log to log the passed parameter
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>toLog</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">message to print w/ console.error</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="search.js.html">search.js</a>, <a href="search.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="search"><span class="type-signature"></span>search<span class="signature">(origin<span class="signature-attributes">opt</span>, validator<span class="signature-attributes">opt</span>, otions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.Objects}</span></h4>
+
+    
+
+
+
+<div class="description">
+    search through given object for data that matches the validator
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>origin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    this.origin
+                
+                </td>
+            
+
+            <td class="description last">object to search through</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>validator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    this.validator
+                
+                </td>
+            
+
+            <td class="description last">condition that will validate whether or not the data looked at is a valid result (see ScopeSearch#constructor)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>otions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    this.options
+                
+                </td>
+            
+
+            <td class="description last">object specifying different options to our search (see ScopeSearch#constructor)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="search.js.html">search.js</a>, <a href="search.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Array containing all matching results
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.Objects</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="testValue"><span class="type-signature"></span>testValue<span class="signature">(data, validator<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    check the specific data against the validator function
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">value to call validator with</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>validator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    this.validator
+                
+                </td>
+            
+
+            <td class="description last">validator to test the passed data with</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="search.js.html">search.js</a>, <a href="search.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    whether or not the tested data matched the requireements of the validator
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ScopeSearch.html">ScopeSearch</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jun 03 2016 12:22:57 GMT+0100 (BST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
