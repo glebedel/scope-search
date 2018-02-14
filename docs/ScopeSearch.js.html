@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ScopeSearch.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ScopeSearch.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>function hasKeys(obj) {
+  return (Object.keys(obj).length);
+}
+/**
+ * @class ScopeSearch
+ * class to search in javascript objects
+ */
+class ScopeSearch {
+  /**
+   * constructor of the ScopeSearch class.
+   * @constructor
+   * @param {Object} [origin={}] object to search through
+   * @param  {function} [validator= function(){return false}] condition that will validate whether or not the data looked at is a valid result
+   * @param  {Object} [options = {maxDepth:50, key:true, value: true, logErrors: false, logProgress:true, progressThreshold:0.25}] object specifying different options to our search
+   * @param {Number} [options.maxDepth=50] maximum depth the recursive search will go through.
+   * @param {Boolean} [options.key=true] check the keys of properties for matches against our validator
+   * @param {Boolean} [options.value=true] check the values of properties for matches against our validator
+   * @param {Boolean} [options.logErrors=false] log (console.error) error thrown by our validator function
+   * @param {Boolean} [options.logProgress=true] log progress percentage of our search (compared to total amount of properties to look at)
+   * @param {Number} [options.progressThreshold=0.25] threshold % to show for the progress logs (default logs for every 25% searched)
+   * @return {ScopeSearch}         instance created (this)
+   */
+  constructor(origin = {}, validator = function() {
+      return false;
+    }, options = {}) {
+      this.options = Object.assign({ maxDepth: 50, key: true, value: true, logErrors: false, logProgress: true, progressThreshold: 0.25 }, options);
+      this.validator = validator;
+      this.origin = origin;
+      this.results = [];
+      this.timeouts = [];
+      return this;
+    }
+    /**
+     * use console.log to log the passed parameter
+     * @param  {String} toLog message to print w/ console.error
+     */
+  logError(toLog) {
+    if (this.options.logErrors) {
+      console.error(toLog);
+    }
+  }
+  __loopThrough(originObj, callback, depth = 0, context = '') {
+    const currentDepth = depth + 1;
+    this._visited.add(originObj);
+    for (let key in originObj) {
+      try {
+        if (!callback(originObj, key, originObj[key], currentDepth, context) || (originObj.hasOwnProperty &amp;&amp; !originObj.hasOwnProperty(key))) {
+          continue;
+        }
+        if (hasKeys(originObj[key]) &amp;&amp; !this._visited.has(originObj[key])) {
+          this.__loopThrough(originObj[key], callback, currentDepth, `${context}['${key}']`);
+        }
+      } catch (e) {
+        this.logError(e);
+      }
+    }
+  }
+  _recursiveBrowsing(originObj, callback) {
+      this._visited = new WeakSet();
+      this.__loopThrough(originObj, callback);
+      this._visited = null;
+    }
+    /**
+     * check the specific data against the validator function
+     * @param  {String|Number|Function} data      value to call validator with
+     * @param  {Function} [validator=this.validator] validator to test the passed data with
+     * @return {Boolean}            whether or not the tested data matched the requireements of the validator
+     */
+  testValue(data, validator = this.validator) {
+      let res = false;
+      try {
+        res = validator(data);
+      } catch (e) {
+        this.logError(`${context}=>${e}`);
+      } finally {
+        return res;
+      }
+    }
+    /**
+     * search through given object for data that matches the validator
+     * @param  {Object} [origin=this.origin]    object to search through
+     * @param  {Function} [validator=this.validator]  condition that will validate whether or not the data looked at is a valid result (see {@link ScopeSearch#constructor})
+     * @param  {Object} [otions=this.options] object specifying different options to our search (see {@link ScopeSearch#constructor})
+     * @return {Array.Objects}           Array containing all matching results
+     */
+  search(origin = this.origin, validator = this.validator, options = {}) {
+      Object.assign(this.options, options);
+      this.results = [];
+      let counter = 0;
+      const nbObjs = this.options.logProgress &amp;&amp; this.count(origin);
+      if (nbObjs) {
+        var nextThreshold = 0.25;
+        console.info(`Searching through ${nbObjs} ${(this.options.key ? "keys and " : "")}${(this.options.value? "values" : "")}`);
+      }
+      this._recursiveBrowsing(origin, (container, key, value, depth, context) => {
+        counter++;
+        if (this.options.logProgress &amp;&amp; counter / nbObjs >= nextThreshold) {
+          console.log(`${((counter / nbObjs) * 100) | 0}% searched...`);
+          nextThreshold += this.options.progressThreshold;
+        }
+        if (this.options.key &amp;&amp; this.testValue(key, validator)) {
+          this.results.push({ data: key, context, container, key: true });
+        }
+        if (this.options.value &amp;&amp; this.testValue(value, validator)) {
+          this.results.push({ data: value, context: `${context}['${key}']`, container, value: true });
+        }
+        return depth &lt; this.options.maxDepth;
+      });
+      return this.results;
+    }
+    /**
+     * Counts the number of non-object properties inside of a javascript object
+     * @param  {Object} [origin=this.origin]    object which will be searched through and the number of properties returned
+     * @return {Number}        Number of (non-object) properties which inside the origin and all its inner objects
+     */
+  count(origin = this.origin) {
+    let res = 0;
+    this._recursiveBrowsing(origin, (container, key, value, depth, context) => {
+      res++;
+      return depth &lt; this.options.maxDepth;
+    });
+    return res;
+  }
+}
+try {
+  module.exports = ScopeSearch;
+} catch (e) {
+  console.log('cannot export module');
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ScopeSearch.html">ScopeSearch</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Sep 16 2016 17:56:36 GMT+0100 (BST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
