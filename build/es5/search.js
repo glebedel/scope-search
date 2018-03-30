@@ -4,7 +4,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -33,13 +33,12 @@ var ScopeSearch = function () {
    * @param {Number} [options.progressThreshold=0.25] threshold % to show for the progress logs (default logs for every 25% searched)
    * @return {ScopeSearch}         instance created (this)
    */
-
   function ScopeSearch() {
-    var origin = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-    var validator = arguments.length <= 1 || arguments[1] === undefined ? function () {
+    var origin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var validator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {
       return false;
-    } : arguments[1];
-    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+    };
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     _classCallCheck(this, ScopeSearch);
 
@@ -66,8 +65,8 @@ var ScopeSearch = function () {
   }, {
     key: '__loopThrough',
     value: function __loopThrough(originObj, callback) {
-      var depth = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
-      var context = arguments.length <= 3 || arguments[3] === undefined ? '' : arguments[3];
+      var depth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var context = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
 
       var currentDepth = depth + 1;
       this._visited.add(originObj);
@@ -102,7 +101,7 @@ var ScopeSearch = function () {
   }, {
     key: 'testValue',
     value: function testValue(data) {
-      var validator = arguments.length <= 1 || arguments[1] === undefined ? this.validator : arguments[1];
+      var validator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.validator;
 
       var res = false;
       try {
@@ -124,12 +123,12 @@ var ScopeSearch = function () {
   }, {
     key: 'search',
     value: function search() {
-      var origin = arguments.length <= 0 || arguments[0] === undefined ? this.origin : arguments[0];
+      var origin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.origin;
 
       var _this = this;
 
-      var validator = arguments.length <= 1 || arguments[1] === undefined ? this.validator : arguments[1];
-      var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+      var validator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.validator;
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
       _extends(this.options, options);
       this.results = [];
@@ -166,7 +165,7 @@ var ScopeSearch = function () {
     value: function count() {
       var _this2 = this;
 
-      var origin = arguments.length <= 0 || arguments[0] === undefined ? this.origin : arguments[0];
+      var origin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.origin;
 
       var res = 0;
       this._recursiveBrowsing(origin, function (container, key, value, depth, context) {

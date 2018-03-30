@@ -4,7 +4,8 @@
   "description": "search in global scope",
   "main": "src/search.js",
   "scripts": {
-    "test": "jasmin tests/"
+    "test": "jasmin tests/",
+    "build": "grunt default"
   },
   "repository": {
     "type": "git",
